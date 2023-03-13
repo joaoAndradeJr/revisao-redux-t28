@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { saveUserName } from '../redux/actions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,6 +12,13 @@ export default class Login extends Component {
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
+  };
+
+  handleClick = () => {
+    const { dispatch, history } = this.props;
+    const { name } = this.state;
+    dispatch(saveUserName(name));
+    history.push('/search');
   };
 
   render() {
@@ -28,6 +37,7 @@ export default class Login extends Component {
         </label>
         <button
           type="submit"
+          onClick={ this.handleClick }
         >
           Entrar
         </button>
@@ -35,3 +45,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default connect()(Login);
