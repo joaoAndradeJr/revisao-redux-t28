@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { connect } from 'react-redux';
-import { fetchArtistAlbum } from '../redux/actions';
+import { fetchArtistAlbum, resetAlbuns } from '../redux/actions';
 import AlbumCard from '../components/AlbumCard';
 
 class Search extends Component {
   state = {
     artist: '',
   };
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(resetAlbuns());
+  }
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
@@ -42,6 +47,7 @@ class Search extends Component {
                 </label>
                 <button
                   type="button"
+                  disabled={ artist.length < 2 }
                   onClick={ this.handleClick }
                 >
                   Buscar
@@ -51,9 +57,8 @@ class Search extends Component {
         }
         <section>
           { albuns.length > 0 &&
-              albuns.map((e, index) =>  index > 0 && (
+              albuns.map((e) => (
                 <AlbumCard
-                  info={ e }
                   key={ e.collectionId }
                   name={ e.artistName }
                   albumName={ e.collectionName }
@@ -70,7 +75,7 @@ class Search extends Component {
 
 const mapStateToProps = (state) => ({
   loading: state.user.loading,
-  albuns: state.user.albuns,
+  albuns: state.artist.albuns,
 });
 
 export default connect(mapStateToProps)(Search);

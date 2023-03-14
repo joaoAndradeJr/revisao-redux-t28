@@ -37,6 +37,7 @@ class Login extends Component {
         </label>
         <button
           type="submit"
+          disabled={ name.length < 3 }
           onClick={ this.handleClick }
         >
           Entrar

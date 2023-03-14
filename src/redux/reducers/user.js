@@ -1,34 +1,24 @@
+import { SAVE_USER_NAME, UPDATE_PROFILE } from "../../services/types";
+
 const initialState = {
   name: '',
-  loading: false,
-  albuns: [],
-  musics: [],
+  email: '',
+  avatar: '',
+  description: '',
 };
 
 function user(state = initialState, action) {
   switch (action.type) {
-  case 'SAVE_USER_NAME':
+  case SAVE_USER_NAME:
     return {
       ...state,
       name: action.payload,
     };
-  case 'LOADING':
+  case UPDATE_PROFILE:
     return {
       ...state,
-      loading: true,
+      ...action.payload,
     };
-  case 'SAVE_ARTIST_ALBUM':
-    return {
-      ...state,
-      albuns: action.payload,
-      loading: false,
-    };
-  case 'SAVE_ALBUM':
-  return {
-    ...state,
-    musics: action.payload,
-    loading: false,
-  };
   default:
     return state;
   }

@@ -1,20 +1,33 @@
+import {
+  LOADING, RESET_ALBUNS, SAVE_ALBUM, SAVE_ARTIST_ALBUM, SAVE_USER_NAME, UPDATE_PROFILE,
+} from "../../services/types";
+
 export const saveUserName = (name) => ({
-  type: 'SAVE_USER_NAME',
+  type: SAVE_USER_NAME,
   payload: name,
 });
 
 export const setLoading = () => ({
-  type: 'LOADING',
+  type: LOADING,
 });
 
 const saveArtistAlbum = (album) => ({
-  type: 'SAVE_ARTIST_ALBUM',
+  type: SAVE_ARTIST_ALBUM,
   payload: album,
 });
 
 const saveAlbum = (album) => ({
-  type: 'SAVE_ALBUM',
+  type: SAVE_ALBUM,
   payload: album,
+});
+
+export const resetAlbuns = () => ({
+  type: RESET_ALBUNS,
+});
+
+export const updateProfile = (profile) => ({
+  type: UPDATE_PROFILE,
+  payload: profile,
 });
 
 // ------------------
@@ -22,18 +35,18 @@ const saveAlbum = (album) => ({
 
 // export function saveUserName(name) {
 //   return {
-  //     type: 'SAVE_USER_NAME',
-  //     payload: name,
-  //   };
-  // }
-  
+//     type: 'SAVE_USER_NAME',
+//     payload: name,
+//   };
+// }
+
 // const saveUserName = (name) => {
-  //   return {
-    //     type: 'SAVE_USER_NAME',
-    //     payload: name,
-    //   };
-    // };
-    //  ---------------------
+//   return {
+//     type: 'SAVE_USER_NAME',
+//     payload: name,
+//   };
+// };
+//  ---------------------
         
 export const fetchArtistAlbum = (artistName) => async (dispatch) => {
   dispatch(setLoading());
@@ -49,7 +62,6 @@ export const fetchAlbum = (albumId) => async (dispatch) => {
   return fetch(url)
     .then((response) => response.json())
     .then(({ results }) => {
-      console.log(results);
       dispatch(saveAlbum(results))
     })
 };
